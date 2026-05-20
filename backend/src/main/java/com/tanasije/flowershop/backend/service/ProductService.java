@@ -31,4 +31,15 @@ public class ProductService {
         dto.setImageUrl(product.getImageUrl());
         return dto;
     }
+
+    public ProductDTO createTestProduct() {
+    Product product = new Product();
+    product.setName("Rose");
+    product.setPrice(10.0);
+    product.setImageUrl("test.jpg");
+
+    Product saved = productRepository.save(product);
+
+    return convertToDTO(saved);
+}
 }
