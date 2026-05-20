@@ -1,4 +1,4 @@
-package com.tanasije.flower_shop.backend;
+package com.tanasije.flowershop.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
