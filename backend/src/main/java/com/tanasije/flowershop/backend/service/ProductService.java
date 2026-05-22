@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.tanasije.flowershop.backend.dto.ProductDTO;
+import com.tanasije.flowershop.backend.dto.CreateProductDTO;
+import com.tanasije.flowershop.backend.dto.ProductResponseDTO;
+import com.tanasije.flowershop.backend.dto.UpdateProductDTO;
 import com.tanasije.flowershop.backend.model.Product;
 import com.tanasije.flowershop.backend.repository.ProductRepository;
 
@@ -17,14 +19,49 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<ProductDTO> getAllProducts() {
+    public List<ProductResponseDTO> getAllProducts() {
         List<Product> products = productRepository.findAll();
 
         return products.stream().map(this::convertToDTO).toList();
     }
 
-    private ProductDTO convertToDTO(Product product) {
-        ProductDTO dto = new ProductDTO();
+    public ProductResponseDTO getProductById(Long id) {
+        Product product = productRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        return convertToDTO(product);
+    }
+
+    public ProductResponseDTO createProduct(CreateProductDTO dto) {
+        Product product = new Product();
+        product.setName(dto.getName());
+        product.setPrice(dto.getPrice());
+        product.setImageUrl(dto.getImageUrl());
+
+        return convertToDTO(productRepository.save(product));
+    }
+
+    public ProductResponseDTO updateProduct(Long id, UpdateProductDTO dto) {
+        Product product = productRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        product.setName(dto.getName());
+        product.setPrice(dto.getPrice());
+        product.setImageUrl(dto.getImageUrl());
+
+        return convertToDTO(productRepository.save(product));
+    }
+
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
+    }
+
+    public void deleteAllProducts() {
+        productRepository.deleteAll();
+    }
+
+    private ProductResponseDTO convertToDTO(Product product) {
+        ProductResponseDTO dto = new ProductResponseDTO();
         dto.setId(product.getId());
         dto.setName(product.getName());
         dto.setPrice(product.getPrice());
@@ -32,14 +69,14 @@ public class ProductService {
         return dto;
     }
 
-    public ProductDTO createTestProduct() {
-    Product product = new Product();
-    product.setName("Rose");
-    product.setPrice(10.0);
-    product.setImageUrl("test.jpg");
+    public ProductResponseDTO createTestProduct() {
+        Product product = new Product();
+        product.setName("Rose");
+        product.setPrice(10.0);
+        product.setImageUrl("test.jpg");
 
-    Product saved = productRepository.save(product);
+        Product saved = productRepository.save(product);
 
-    return convertToDTO(saved);
-}
+        return convertToDTO(saved);
+    }
 }
