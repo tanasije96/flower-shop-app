@@ -37,6 +37,7 @@ public class ProductService {
         product.setName(dto.getName());
         product.setPrice(dto.getPrice());
         product.setImageUrl(dto.getImageUrl());
+        product.setType(dto.getType());
 
         return convertToDTO(productRepository.save(product));
     }
@@ -48,6 +49,7 @@ public class ProductService {
         product.setName(dto.getName());
         product.setPrice(dto.getPrice());
         product.setImageUrl(dto.getImageUrl());
+        product.setType(dto.getType());
 
         return convertToDTO(productRepository.save(product));
     }
@@ -66,17 +68,8 @@ public class ProductService {
         dto.setName(product.getName());
         dto.setPrice(product.getPrice());
         dto.setImageUrl(product.getImageUrl());
+        dto.setType(product.getType());
+        
         return dto;
-    }
-
-    public ProductResponseDTO createTestProduct() {
-        Product product = new Product();
-        product.setName("Rose");
-        product.setPrice(10.0);
-        product.setImageUrl("test.jpg");
-
-        Product saved = productRepository.save(product);
-
-        return convertToDTO(saved);
     }
 }

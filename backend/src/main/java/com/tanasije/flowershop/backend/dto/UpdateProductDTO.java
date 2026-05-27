@@ -1,5 +1,7 @@
 package com.tanasije.flowershop.backend.dto;
 
+import com.tanasije.flowershop.backend.model.ProductType;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -18,4 +20,7 @@ public class UpdateProductDTO {
     private double price;
 
     private String imageUrl;
+
+    @NotBlank(message = "Product type is required")
+    private ProductType type;
 }
