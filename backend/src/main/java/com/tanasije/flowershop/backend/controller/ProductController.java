@@ -52,9 +52,4 @@ public class ProductController {
     public void deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
     }
-
-    @PostMapping("/test-data")
-    public ProductResponseDTO createTest() {
-         return productService.createTestProduct();
-    }
 }
