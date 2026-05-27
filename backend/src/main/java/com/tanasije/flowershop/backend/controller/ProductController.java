@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tanasije.flowershop.backend.dto.CreateProductDTO;
 import com.tanasije.flowershop.backend.dto.ProductResponseDTO;
 import com.tanasije.flowershop.backend.dto.UpdateProductDTO;
+import com.tanasije.flowershop.backend.model.ProductType;
 import com.tanasije.flowershop.backend.service.ProductService;
 
 import jakarta.validation.Valid;
@@ -51,5 +52,10 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
+    }
+
+    @GetMapping("/types")
+    public ProductType[] getProductTypes() {
+        return ProductType.values();
     }
 }
