@@ -1,4 +1,4 @@
-# 🌹 Flower Shop App
+# 🌹 Flower Shop App (In-Progress)
 
 A full-stack e-commerce web application for browsing and purchasing flowers.  
 Built as a portfolio project to demonstrate full-stack development skills.
