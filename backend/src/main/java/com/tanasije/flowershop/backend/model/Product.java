@@ -1,5 +1,8 @@
 package com.tanasije.flowershop.backend.model;
 
+import java.math.BigDecimal;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -23,9 +26,12 @@ public class Product {
     private Long id;
 
     private String name;
-    private double price;
+    private BigDecimal price;
     private String imageUrl;
 
     @Enumerated(EnumType.STRING)
     private ProductType type;
+
+    @Column(nullable = false)
+    private boolean isDeleted = false;
 }
