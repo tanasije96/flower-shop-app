@@ -20,7 +20,7 @@ public class ProductService {
     }
 
     public List<ProductResponseDTO> getAllProducts() {
-        List<Product> products = productRepository.findAll();
+        List<Product> products = productRepository.findByIsDeletedFalse();
 
         return products.stream().map(this::convertToDTO).toList();
     }
@@ -55,11 +55,11 @@ public class ProductService {
     }
 
     public void deleteProduct(Long id) {
-        productRepository.deleteById(id);
-    }
+        Product product = productRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Product not found"));
 
-    public void deleteAllProducts() {
-        productRepository.deleteAll();
+        product.setDeleted(true);
+        productRepository.save(product);
     }
 
     private ProductResponseDTO convertToDTO(Product product) {

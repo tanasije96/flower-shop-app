@@ -29,6 +29,7 @@ public class ProductController {
         this.productService = productService;
     }
 
+    // Shows non-soft deleted products
     @GetMapping
     public List<ProductResponseDTO> getAllProducts() {
         return productService.getAllProducts();
@@ -49,6 +50,7 @@ public class ProductController {
         return productService.updateProduct(id, dto);
     }
 
+    // This is a soft delete function
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
