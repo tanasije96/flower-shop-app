@@ -1,5 +1,7 @@
 package com.tanasije.flowershop.backend.dto;
 
+import java.math.BigDecimal;
+
 import com.tanasije.flowershop.backend.model.ProductType;
 
 import jakarta.validation.constraints.NotBlank;
@@ -18,7 +20,7 @@ public class UpdateProductDTO {
     private String name;
 
     @Positive(message = "Price must be greater than 0")
-    private double price;
+    private BigDecimal price;
 
     private String imageUrl;
 
