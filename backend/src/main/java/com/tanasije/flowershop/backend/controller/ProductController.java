@@ -20,7 +20,7 @@ import com.tanasije.flowershop.backend.service.ProductService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products")
 public class ProductController {
 
     private final ProductService productService;
