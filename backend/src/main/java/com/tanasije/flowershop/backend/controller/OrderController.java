@@ -2,7 +2,6 @@ package com.tanasije.flowershop.backend.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,8 +47,8 @@ public class OrderController {
         return orderService.updateStatus(id, dto.getStatus());
     }
 
-    @DeleteMapping("/{id}")
+    /* @DeleteMapping("/{id}")
     public void deleteOrder(@PathVariable Long id) {
         orderService.deleteOrder(id);
-    }
+    }*/
 }
