@@ -22,12 +22,16 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class OrderService {
 
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
 
     public OrderResponseDTO createOrder(List<CreateOrderItemDTO> items) {
+        if (items == null || items.isEmpty()) {
+            throw new RuntimeException("Order must have at least one item");
+        }
 
         Order order = new Order();
         order.setStatus(OrderStatus.PENDING);
@@ -63,6 +67,7 @@ public class OrderService {
         return mapToDTO(saved);
     }
 
+    @Transactional(readOnly = true)
     public OrderResponseDTO getOrder(Long id) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
@@ -70,6 +75,7 @@ public class OrderService {
         return mapToDTO(order);
     }
 
+    @Transactional(readOnly = true)
     public List<OrderResponseDTO> getAllOrders() {
         return orderRepository.findAll()
                 .stream()
@@ -77,7 +83,6 @@ public class OrderService {
                 .toList();
     }
 
-    @Transactional
     public OrderResponseDTO updateStatus(Long id, OrderStatus newStatus) {
 
         Order order = orderRepository.findById(id)
@@ -88,10 +93,6 @@ public class OrderService {
         Order saved = orderRepository.save(order);
 
         return mapToDTO(saved);
-    }
-
-    public void deleteOrder(Long id) {
-        orderRepository.deleteById(id);
     }
 
     private OrderResponseDTO mapToDTO(Order order) {

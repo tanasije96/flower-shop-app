@@ -3,6 +3,7 @@ package com.tanasije.flowershop.backend.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tanasije.flowershop.backend.dto.CreateProductDTO;
 import com.tanasije.flowershop.backend.dto.ProductResponseDTO;
@@ -11,6 +12,7 @@ import com.tanasije.flowershop.backend.model.Product;
 import com.tanasije.flowershop.backend.repository.ProductRepository;
 
 @Service
+@Transactional
 public class ProductService {
 
     private final ProductRepository productRepository;
@@ -19,12 +21,14 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<ProductResponseDTO> getAllProducts() {
         List<Product> products = productRepository.findByIsDeletedFalse();
 
         return products.stream().map(this::convertToDTO).toList();
     }
 
+    @Transactional(readOnly = true)
     public ProductResponseDTO getProductById(Long id) {
         Product product = productRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Product not found"));
@@ -59,7 +63,6 @@ public class ProductService {
             .orElseThrow(() -> new RuntimeException("Product not found"));
 
         product.setDeleted(true);
-        productRepository.save(product);
     }
 
     private ProductResponseDTO convertToDTO(Product product) {
