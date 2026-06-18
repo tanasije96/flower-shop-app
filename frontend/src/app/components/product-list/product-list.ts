@@ -3,6 +3,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product';
 import { ProductService } from '../../services/product.service';
 import { MatTableModule } from '@angular/material/table';
+import { getProductTypeDisplay } from '../../utils/product-utils';
+import { ProductType } from '../../models/product-type';
 
 @Component({
   selector: 'app-product-list',
@@ -46,5 +48,8 @@ export class ProductListComponent implements OnInit {
         this.cd.detectChanges();
       }
     });
+  }
+  getDisplayType(type: ProductType): string {
+    return getProductTypeDisplay(type);
   }
 }
