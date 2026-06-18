@@ -1,12 +1,13 @@
 import { ProductType } from "../models/product-type";
 
+const PRODUCT_TYPE_LABELS: Record<ProductType, string> = {
+  FLOWER: 'Flower',
+  BOUQUET: 'Bouquet',
+  PLANT: 'Plant',
+  POT: 'Pot',
+  ACCESSORY: 'Accessory'
+};
+
 export function getProductTypeDisplay(type: ProductType): string {
-  switch (type) {
-    case ProductType.FLOWER: return 'Flower';
-    case ProductType.BOUQUET: return 'Bouquet';
-    case ProductType.PLANT: return 'Plant';
-    case ProductType.POT: return 'Pot';
-    case ProductType.ACCESSORY: return 'Accessory';
-    default: return type;
-  }
+  return PRODUCT_TYPE_LABELS[type];
 }
