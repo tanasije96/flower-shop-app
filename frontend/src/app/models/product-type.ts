@@ -1,7 +1,8 @@
-export enum ProductType {
-  FLOWER = 'FLOWER',
-  BOUQUET = 'BOUQUET',
-  PLANT = 'PLANT',
-  POT = 'POT',
-  ACCESSORY = 'ACCESSORY'
-}
+export type ProductType =
+  | 'FLOWER'
+  | 'BOUQUET'
+  | 'PLANT'
+  | 'POT'
+  | 'ACCESSORY';
+
+  
