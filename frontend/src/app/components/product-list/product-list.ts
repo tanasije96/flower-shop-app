@@ -8,6 +8,7 @@ import { ProductType } from '../../models/product-type';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { CartService } from '../../services/cart';
 
 @Component({
   selector: 'app-product-list',
@@ -25,7 +26,8 @@ export class ProductListComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private cd: ChangeDetectorRef,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -58,11 +60,18 @@ export class ProductListComponent implements OnInit {
     return getProductTypeDisplay(type);
   }
 
+  getcartCount(): number {
+    return this.cartService.getTotalItems();
+  }
+
   buyProduct(product: Product): void {
+    this.cartService.addItem(product.id);
+
     this.snackBar.open(
-      `You've successfully purchased ${product.name}!`,
+      `${product.name} added to cart!`,
       'Close',
-      { duration: 3000 }
+      { duration: 2000 }
     );
   }
+  
 }
