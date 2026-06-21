@@ -9,6 +9,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CartService } from '../../services/cart';
+import { OrderService } from '../../services/order';
 
 @Component({
   selector: 'app-product-list',
@@ -22,16 +23,19 @@ export class ProductListComponent implements OnInit {
   displayedColumns: string[] = ['name', 'price', 'type', 'actions'];
   loading = true;
   error = '';
+  cartCount: number = 0;
 
   constructor(
     private productService: ProductService,
     private cd: ChangeDetectorRef,
     private snackBar: MatSnackBar,
-    private cartService: CartService
+    private cartService: CartService,
+    private orderService: OrderService
   ) {}
 
   ngOnInit(): void {
     this.loadProducts();
+    this.updateCartCount();
   }
 
   loadProducts(): void {
@@ -60,18 +64,58 @@ export class ProductListComponent implements OnInit {
     return getProductTypeDisplay(type);
   }
 
-  getcartCount(): number {
-    return this.cartService.getTotalItems();
+  updateCartCount(): void {
+    this.cartCount = this.cartService.getTotalItems();
   }
 
   buyProduct(product: Product): void {
     this.cartService.addItem(product.id);
+    this.updateCartCount();
 
     this.snackBar.open(
       `${product.name} added to cart!`,
       'Close',
       { duration: 2000 }
     );
+  }
+
+  checkout(): void {
+    const items = this.cartService.getItems();
+
+    if (items.length === 0) {
+      this.snackBar.open('Cart is empty!', 'Close', { duration: 2000 });
+      return;
+    }
+
+    const order = {
+      items: items
+    };
+
+    this.orderService.createOrder(order).subscribe({
+      next: () => {
+        this.cartService.clear();
+        this.updateCartCount();
+
+        this.cd.detectChanges();
+
+        this.snackBar.open(
+          'Order successfully created!',
+          'Close',
+          { duration: 3000 }
+        );
+
+        console.log('Order created successfully');
+      },
+      error: (err) => {
+        console.error('Order failed:', err);
+
+        this.snackBar.open(
+          'Failed to create order',
+          'Close',
+          { duration: 3000 }
+        );
+      }
+    });
   }
   
 }

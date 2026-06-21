@@ -36,4 +36,8 @@
 
 </table>
 
-<div>Cart ({{ getcartCount() }})</div>
+<div>Cart ({{ cartCount }})</div>
+
+<button mat-raised-button color="accent" (click)="checkout()">
+  Checkout
+</button>
