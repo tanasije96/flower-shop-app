@@ -60,7 +60,6 @@ public class OrderService {
         }
 
         order.setItems(orderItems);
-        order.setTotalItems(orderItems.size());
         order.setTotalPrice(total);
 
         Order saved = orderRepository.save(order);
@@ -111,11 +110,13 @@ public class OrderService {
                 .toList();
 
         dto.setItems(itemDTOs);
-        Integer totalItems = order.getItems().stream()
-                .mapToInt(OrderItem::getQuantity)
-                .sum();
 
-        dto.setTotalItems(totalItems);
+        dto.setTotalItems(
+            order.getItems()
+                .stream()
+                .mapToInt(OrderItem::getQuantity)
+                .sum()
+        );
 
         return dto;
     }
