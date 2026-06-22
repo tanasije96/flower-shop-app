@@ -10,11 +10,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CartService } from '../../services/cart';
 import { OrderService } from '../../services/order';
+import { OrderListComponent } from '../order-list/order-list';
 
 @Component({
   selector: 'app-product-list',
   imports: [CommonModule, MatTableModule, MatSnackBarModule, MatButtonModule,
-    MatIconModule],
+    MatIconModule, OrderListComponent],
   templateUrl: './product-list.html',
   styleUrl: './product-list.css',
 })
@@ -103,6 +104,8 @@ export class ProductListComponent implements OnInit {
           'Close',
           { duration: 3000 }
         );
+
+        this.orderService.notifyOrdersUpdated();
 
         console.log('Order created successfully');
       },
