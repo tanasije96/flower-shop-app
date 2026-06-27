@@ -45,11 +45,9 @@
   </mat-card>
 </div>
 
-<div>Cart ({{ cartCount }})</div>
-
-<button mat-raised-button color="accent" (click)="checkout()">
-  Checkout
-</button>
+<div>
+  <app-cart></app-cart>
+</div>
 
 <div>
   <app-order-list></app-order-list>
