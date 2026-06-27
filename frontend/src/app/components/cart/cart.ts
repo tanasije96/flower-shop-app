@@ -61,6 +61,8 @@ export class CartComponent implements OnInit {
       next: () => {
         this.cartService.clear();
 
+        this.orderService.notifyOrdersUpdated();
+
         this.snackBar.open('Order successfully created!', 'Close', {
           duration: 3000
         });

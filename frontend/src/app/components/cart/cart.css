@@ -1,0 +1,23 @@
+.table-container {
+    padding: 20px;
+}
+
+.table-card {
+    padding: 2px;
+}
+
+.table-card-header {
+    padding-bottom: 10px; 
+}
+
+.mat-column-productId {
+  width: 40%;
+}
+
+.mat-column-quantity {
+  width: 20%;
+}
+
+.mat-column-actions {
+  width: 40%;
+}

@@ -1,35 +1,35 @@
-<mat-card appearance="outlined">
+<div class="table-container">
+    <mat-card class="table-card" appearance="outlined">
+        <mat-card-header class="table-card-header">
+            <mat-card-title>Cart</mat-card-title>
+        </mat-card-header>
+        <mat-card-content> 
+            <table mat-table [dataSource]="(items$ | async) ?? []">
+                <ng-container matColumnDef="productId">
+                <th mat-header-cell *matHeaderCellDef>Product</th>
+                <td mat-cell *matCellDef="let item">{{ item.productId }}</td>
+                </ng-container>
 
-  <mat-card-title>Cart</mat-card-title>
+                <ng-container matColumnDef="quantity">
+                <th mat-header-cell *matHeaderCellDef>Qty</th>
+                <td mat-cell *matCellDef="let item">{{ item.quantity }}</td>
+                </ng-container>
 
-  <table mat-table [dataSource]="(items$ | async) ?? []">
+                <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let item">
+                    <button mat-button (click)="removeItem(item.productId)">
+                    Remove
+                    </button>
+                </td>
+                </ng-container>
 
-    <ng-container matColumnDef="productId">
-      <th mat-header-cell *matHeaderCellDef>Product</th>
-      <td mat-cell *matCellDef="let item">{{ item.productId }}</td>
-    </ng-container>
+                <tr mat-header-row *matHeaderRowDef="['productId','quantity','actions']"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['productId','quantity','actions']"></tr>
 
-    <ng-container matColumnDef="quantity">
-      <th mat-header-cell *matHeaderCellDef>Qty</th>
-      <td mat-cell *matCellDef="let item">{{ item.quantity }}</td>
-    </ng-container>
+            </table>
+            
+        </mat-card-content>
 
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let item">
-        <button mat-button (click)="removeItem(item.productId)">
-          Remove
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="['productId','quantity','actions']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['productId','quantity','actions']"></tr>
-
-  </table>
-
-  <button mat-raised-button color="primary" (click)="checkout()">
-    Checkout ({{ totalItems$ | async }})
-  </button>
-
-</mat-card>
+    </mat-card>
+</div>
