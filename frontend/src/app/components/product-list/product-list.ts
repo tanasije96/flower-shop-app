@@ -12,11 +12,12 @@ import { OrderListComponent } from '../order-list/order-list';
 import {MatCardModule} from '@angular/material/card';
 import { CartComponent } from "../cart/cart";
 import { CartService } from '../../services/cart';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-product-list',
   imports: [CommonModule, MatTableModule, MatSnackBarModule, MatButtonModule,
-    MatIconModule, OrderListComponent, MatCardModule, CartComponent],
+    MatIconModule, OrderListComponent, MatCardModule, CartComponent, MatProgressSpinnerModule],
   templateUrl: './product-list.html',
   styleUrl: './product-list.css',
 })
