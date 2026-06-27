@@ -11,11 +11,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { CartService } from '../../services/cart';
 import { OrderService } from '../../services/order';
 import { OrderListComponent } from '../order-list/order-list';
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-product-list',
   imports: [CommonModule, MatTableModule, MatSnackBarModule, MatButtonModule,
-    MatIconModule, OrderListComponent],
+    MatIconModule, OrderListComponent, MatCardModule],
   templateUrl: './product-list.html',
   styleUrl: './product-list.css',
 })
