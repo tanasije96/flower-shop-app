@@ -9,6 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CreateOrderItemDTO } from '../../dto/create-order-item.dto';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -42,6 +43,12 @@ export class CartComponent implements OnInit {
   get totalItems$() {
     return this.cartService.totalItems$;
   }
+
+  get isCartEmpty$(){
+    return this.cartService.items$.pipe(
+      map(items => !items || items.length === 0)
+    );
+  } 
 
   removeItem(productId: number): void {
     this.cartService.removeItem(productId);

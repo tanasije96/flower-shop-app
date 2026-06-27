@@ -28,7 +28,11 @@
                 <tr mat-row *matRowDef="let row; columns: ['productId','quantity','actions']"></tr>
 
             </table>
-            
         </mat-card-content>
+        <mat-card-actions>
+            <button class="button" mat-raised-button color="primary" (click)="checkout()" [disabled]="isCartEmpty$ | async">
+                Checkout
+            </button>
+        </mat-card-actions>
     </mat-card>
 </div>
