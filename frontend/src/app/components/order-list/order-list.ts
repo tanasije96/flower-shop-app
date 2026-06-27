@@ -4,6 +4,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import {MatSortModule} from '@angular/material/sort';
 
 import { Order } from '../../models/order';
 import { OrderService } from '../../services/order';
@@ -15,7 +16,8 @@ import { OrderService } from '../../services/order';
     MatTableModule,
     MatSnackBarModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatSortModule
   ],
   templateUrl: './order-list.html',
   styleUrl: './order-list.css',
@@ -84,12 +86,6 @@ export class OrderListComponent implements OnInit {
 
   viewOrder(order: Order): void {
     console.log('Viewing order:', order);
-
-    this.snackBar.open(
-      `Viewing order #${order.id}`,
-      'Close',
-      { duration: 2000 }
-    );
 
     // later: route to order details page
   }
