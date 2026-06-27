@@ -9,6 +9,7 @@ import {MatCardModule} from '@angular/material/card';
 
 import { Order } from '../../models/order';
 import { OrderService } from '../../services/order';
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-order-list',
@@ -19,8 +20,9 @@ import { OrderService } from '../../services/order';
     MatButtonModule,
     MatIconModule,
     MatSortModule,
-    MatCardModule
-  ],
+    MatCardModule,
+    MatProgressSpinnerModule
+],
   templateUrl: './order-list.html',
   styleUrl: './order-list.css',
 })
