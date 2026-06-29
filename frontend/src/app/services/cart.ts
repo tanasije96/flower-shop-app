@@ -6,55 +6,45 @@ import { CreateOrderItemDTO } from '../dto/create-order-item.dto';
   providedIn: 'root',
 })
 export class CartService {
-  private items: CreateOrderItemDTO[] = [];
 
-  private itemsSubject = new BehaviorSubject<CreateOrderItemDTO[]>([]);
-  items$ = this.itemsSubject.asObservable();
+  private items = new BehaviorSubject<CreateOrderItemDTO[]>([]);
+  items$ = this.items.asObservable();
 
   totalItems$ = this.items$.pipe(
     map(items => items.reduce((sum, i) => sum + i.quantity, 0))
   );
 
   getItems(): CreateOrderItemDTO[] {
-    return this.items;
+    return this.items.getValue();
   }
 
   addItem(productId: number): void {
-    const existing = this.items.find(i => i.productId === productId);
+    const existing = this.items.getValue().find(i => i.productId === productId);
 
     if (existing) {
       existing.quantity++;
     } else {
-      this.items.push({ productId, quantity: 1 });
+      this.items.next([...this.items.getValue(), { productId, quantity: 1 }]);
     }
-
-    this.emitChanges();
   }
 
   clear(): void {
-    this.items = [];
-    this.emitChanges();
-  }
-
-  private emitChanges(): void {
-    this.itemsSubject.next([...this.items]); 
+    this.items.next([]);
   }
 
   getTotalItems(): number {
-    return this.items.reduce((sum, item) => sum + item.quantity, 0);
+    return this.items.getValue().reduce((sum, item) => sum + item.quantity, 0);
   }
 
   removeItem(productId: number): void {
-    const existing = this.items.find(i => i.productId === productId);
+    const existing = this.items.getValue().find(i => i.productId === productId);
 
     if (!existing) return;
 
     existing.quantity--;
 
     if (existing.quantity <= 0) {
-      this.items = this.items.filter(i => i.productId !== productId);
+      this.items.next(this.items.getValue().filter(i => i.productId !== productId));
     }
-
-    this.emitChanges();
   }
 }
