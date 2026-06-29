@@ -24,3 +24,10 @@
 .button{
     margin: 10px;
 }
+
+.empty-items-list-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}

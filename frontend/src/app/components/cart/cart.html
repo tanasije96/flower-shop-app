@@ -4,6 +4,13 @@
             <mat-card-title>Cart</mat-card-title>
         </mat-card-header>
         <mat-card-content> 
+            @let items = (items$ | async);
+
+            @if (!items || items.length === 0) {
+                <div class="empty-items-list-container">
+                <p>Empty Cart.</p>
+                </div>
+            } @else {
             <table mat-table [dataSource]="(items$ | async) ?? []">
                 <ng-container matColumnDef="productId">
                 <th mat-header-cell *matHeaderCellDef>Product</th>
@@ -28,6 +35,7 @@
                 <tr mat-row *matRowDef="let row; columns: ['productId','quantity','actions']"></tr>
 
             </table>
+        }
         </mat-card-content>
         <mat-card-actions>
             <button class="button" mat-raised-button color="primary" (click)="checkout()" [disabled]="isCartEmpty$ | async">
