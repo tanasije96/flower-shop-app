@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import {MatSortModule} from '@angular/material/sort';
@@ -28,7 +28,9 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 })
 export class OrderListComponent implements OnInit {
 
-  orders: Order[] = [];
+  get orders$() {
+    return this.orderService.orders$;
+  }
   displayedColumns: string[] = [
     'id',
     'totalPrice',
@@ -38,48 +40,12 @@ export class OrderListComponent implements OnInit {
     'actions'
   ];
 
-  loading = true;
-  error = '';
-
   constructor(
-    private orderService: OrderService,
-    private cd: ChangeDetectorRef,
-    private snackBar: MatSnackBar
+    private orderService: OrderService
   ) {}
 
   ngOnInit(): void {
-    this.orderService.orders$.subscribe(() => {
-      this.loadOrders();
-    });
-  }
-
-  loadOrders(): void {
-    console.log('Loading orders...');
-
-    this.orderService.getAllOrders().subscribe({
-      next: (data) => {
-        console.log('ORDERS RECEIVED:', data);
-
-        this.orders = data;
-        this.loading = false;
-
-        this.cd.detectChanges();
-      },
-      error: (err) => {
-        console.error('ERROR:', err);
-
-        this.error = 'Failed to load orders';
-        this.loading = false;
-
-        this.cd.detectChanges();
-
-        this.snackBar.open(
-          'Failed to load orders',
-          'Close',
-          { duration: 3000 }
-        );
-      }
-    });
+    this.orderService.loadOrders();
   }
 
   getDisplayStatus(status: string): string {
