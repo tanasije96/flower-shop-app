@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { Product } from '../models/product';
 import { ProductType } from '../models/product-type';
@@ -14,7 +14,15 @@ export class ProductService {
 
   private baseUrl = 'http://localhost:8080/api/products';
 
+  private products = new BehaviorSubject<Product[] | null>(null);
+  products$ = this.products.asObservable();
+
   constructor(private http: HttpClient) {}
+
+  loadProducts() {
+    this.http.get<Product[]>(this.baseUrl)
+      .subscribe(data => this.products.next(data));
+  }
 
   // GET all
   getAllProducts(): Observable<Product[]> {

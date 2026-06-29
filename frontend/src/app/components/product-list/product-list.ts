@@ -22,44 +22,21 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   styleUrl: './product-list.css',
 })
 export class ProductListComponent implements OnInit {
-  products: Product[] = [];
+  get products$() {
+    return this.productService.products$;
+  }
   displayedColumns: string[] = ['name', 'price', 'type', 'actions'];
-  loading = true;
-  error = '';
 
   constructor(
     private productService: ProductService,
-    private cd: ChangeDetectorRef,
     private snackBar: MatSnackBar,
-    private cartService: CartService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
-    this.loadProducts();
+    this.productService.loadProducts();
   }
 
-  loadProducts(): void {
-    console.log('Calling backend...');
-
-    this.productService.getAllProducts().subscribe({
-      next: (data) => {
-        console.log('DATA RECEIVED:', data);
-
-        this.products = data;
-        this.loading = false;
-
-        this.cd.detectChanges();
-      },
-      error: (err) => {
-        console.log('ERROR:', err);
-
-        this.error = 'Failed to load products';
-        this.loading = false;
-
-        this.cd.detectChanges();
-      }
-    });
-  }
   getDisplayType(type: ProductType): string {
     return getProductTypeDisplay(type);
   }

@@ -4,10 +4,10 @@
       <mat-card-title>Products</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      @if (loading) {
-        <div class="spinner-container">
-          <mat-spinner></mat-spinner>
-        </div>
+      @let products = (products$ | async);
+
+      @if (!products) {
+        <mat-spinner></mat-spinner>
       } @else {
       <table mat-table [dataSource]="products" class="mat-elevation-z8">
 
