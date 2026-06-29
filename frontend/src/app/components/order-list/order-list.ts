@@ -48,9 +48,7 @@ export class OrderListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadOrders();
-
-    this.orderService.refreshOrders$.subscribe(() => {
+    this.orderService.orders$.subscribe(() => {
       this.loadOrders();
     });
   }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CreateOrderDTO } from '../dto/create-order.dto';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable} from 'rxjs';
 import { Order } from '../models/order';
 
 @Injectable({
@@ -12,15 +12,15 @@ export class OrderService {
 
   constructor(private http: HttpClient) {}
 
-  private refreshOrdersSubject = new Subject<void>();
-  refreshOrders$ = this.refreshOrdersSubject.asObservable();
+  private orders = new BehaviorSubject<Order[]>([]);
+  orders$ = this.orders.asObservable();
 
   createOrder(order: CreateOrderDTO): Observable<Order> {
     return this.http.post<Order>(this.apiUrl, order);
   }
 
   notifyOrdersUpdated(): void {
-    this.refreshOrdersSubject.next();
+    this.orders.next([...this.orders.getValue()]);
   }
 
   getAllOrders(): Observable<Order[]> {
