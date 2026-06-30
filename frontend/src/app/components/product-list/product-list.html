@@ -7,7 +7,9 @@
       @let products = (products$ | async);
 
       @if (!products) {
-        <mat-spinner></mat-spinner>
+        <div class="spinner-container">
+          <mat-spinner></mat-spinner>
+        </div>
       } @else {
       <table mat-table [dataSource]="products" class="mat-elevation-z8">
 
