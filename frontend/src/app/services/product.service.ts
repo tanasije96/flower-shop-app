@@ -12,7 +12,7 @@ import { UpdateProductDTO } from '../dto/update-product.dto';
 })
 export class ProductService {
 
-  private baseUrl = 'http://localhost:8080/api/products';
+  private baseUrl = 'https://flowerbelt.onrender.com/api/products';
 
   private products = new BehaviorSubject<Product[] | null>(null);
   products$ = this.products.asObservable();
