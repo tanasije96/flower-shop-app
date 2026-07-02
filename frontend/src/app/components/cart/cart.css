@@ -31,3 +31,8 @@
     align-items: center;
     height: 75px;
 }
+
+.table-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+}

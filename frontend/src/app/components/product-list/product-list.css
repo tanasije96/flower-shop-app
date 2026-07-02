@@ -22,3 +22,8 @@
   color: red;
   padding: 16px;
 }
+
+.table-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+}
