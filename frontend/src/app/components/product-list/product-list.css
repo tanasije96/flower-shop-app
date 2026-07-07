@@ -6,10 +6,6 @@
     padding: 2px;
 }
 
-.table-card-header {
-    padding-bottom: 10px; 
-}
-
 .spinner-container {
   display: flex;
   justify-content: center;
@@ -26,4 +22,16 @@
 .table-wrapper {
     overflow-x: auto;
     max-width: 100%;
+}
+
+.product-image {
+  width: 100px;
+  border-radius: 8px;
+  display: block;   
+  margin: 20px auto;  
+}
+
+td.mat-column-image {
+  width: 125px;
+  text-align: center;
 }

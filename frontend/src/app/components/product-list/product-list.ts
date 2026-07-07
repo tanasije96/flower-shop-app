@@ -25,7 +25,7 @@ export class ProductListComponent implements OnInit {
   get products$() {
     return this.productService.products$;
   }
-  displayedColumns: string[] = ['name', 'price', 'type', 'actions'];
+  displayedColumns: string[] = ['image', 'name', 'price', 'type', 'actions'];
 
   constructor(
     private productService: ProductService,
