@@ -38,3 +38,4 @@ Thumbs.db
 #Env
 .env
 application-prod.properties
+application-local.properties
